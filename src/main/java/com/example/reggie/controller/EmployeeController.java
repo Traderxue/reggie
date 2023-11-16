@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @RestController
 @RequestMapping("/employee")
@@ -43,12 +45,29 @@ public class EmployeeController {
         return  R.success(emp);
     }
 
-    @GetMapping("/getid/{id}")
-    public R<Employee> getById(@PathVariable int id){
-        LambdaQueryWrapper<Employee> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Employee::getId,id);
-        Employee employee = employeeService.getOne(queryWrapper);
-        return  R.success(employee);
+    @PostMapping("/logout")
+    public R<String> logout(HttpServletRequest request){
+        request.getSession().removeAttribute("employee");
+        return R.success("退出成功");
     }
+
+    @PostMapping
+    public R<String> save(HttpServletRequest request ,@RequestBody Employee employee){
+        log.info(employee.toString());
+        employee.setPassword(DigestUtils.md5DigestAsHex("123456".getBytes()));
+
+        employee.setCreateTime(LocalDateTime.now());
+        employee.setUpdateTime(LocalDateTime.now());
+
+        Long empId = (Long) request.getSession().getAttribute("employee");
+        employee.setCreateUser(empId);
+        employee.setUpdateUser(empId);
+
+        employeeService.save(employee);
+
+        return R.success("新增员工成功");
+
+    }
+
 }
 
