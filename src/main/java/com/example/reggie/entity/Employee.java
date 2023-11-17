@@ -32,10 +32,10 @@ public class Employee {
 
     private LocalDateTime updateTime;
 
-    @TableField(fill = FieldFill.INSERT)
+    @TableField(fill = FieldFill.INSERT)   //插入时填充字段
     private Long createUser;
 
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @TableField(fill = FieldFill.INSERT_UPDATE)         //插入和更新时填充字段
     private Long updateUser;
 
 

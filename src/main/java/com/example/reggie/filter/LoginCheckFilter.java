@@ -1,6 +1,7 @@
 package com.example.reggie.filter;
 
 import com.alibaba.druid.support.json.JSONUtils;
+import com.example.reggie.common.BaseContext;
 import com.example.reggie.common.R;
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -38,6 +39,11 @@ public class LoginCheckFilter implements Filter {
             return;
         };
         if(request.getSession().getAttribute("employee")!=null){
+
+            Long empId = (Long) request.getSession().getAttribute("employee");
+
+            BaseContext.setCurrentId(empId);
+
           filterChain.doFilter(request,response);
           return;
         };
