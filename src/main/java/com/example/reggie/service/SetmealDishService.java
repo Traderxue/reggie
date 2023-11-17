@@ -6,6 +6,4 @@ import com.example.reggie.entity.SetmealDish;
 
 public interface SetmealDishService extends IService<SetmealDish> {
     public void saveWidthDish(SetmealDto setmealDto);
-
-    void save(SetmealDto setmealDto);
 }

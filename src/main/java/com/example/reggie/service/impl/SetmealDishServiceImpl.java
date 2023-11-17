@@ -18,10 +18,8 @@ public class SetmealDishServiceImpl extends ServiceImpl<SetmealDishMapper, Setme
 
     @Autowired
     private SetmealDishService setmealDishService;
-    @Override
     @Transactional      //事务注解保持数据一致性
     public void saveWidthDish(SetmealDto setmealDto) {
-        this.save(setmealDto);
 
         List<SetmealDish> setmealDishes = setmealDto.getSetmealDishes();
 
@@ -34,8 +32,4 @@ public class SetmealDishServiceImpl extends ServiceImpl<SetmealDishMapper, Setme
 
     }
 
-    @Override
-    public void save(SetmealDto setmealDto) {
-        setmealDishService.save(setmealDto);
-    }
 }
